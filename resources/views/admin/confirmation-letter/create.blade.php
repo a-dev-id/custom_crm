@@ -81,6 +81,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-6">
+                                    <label for="adult">Adult</label>
+                                    <input type="number" class="form-control" id="adult" name="adult" placeholder="Type something..." required>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="child">Child</label>
+                                    <input type="number" class="form-control" id="child" name="child" placeholder="Type something..." required>
+                                </div>
+                                <div class="form-group col-6">
                                     <label for="total_charge">Total charge</label>
                                     <input type="text" class="form-control" id="total_charge" name="total_charge" placeholder="Type something...">
                                 </div>
@@ -157,11 +165,7 @@
                                     <label for="email">Email</label>
                                     <input type="email" class="form-control" id="email" name="email" placeholder="Type something..." required>
                                 </div>
-                                <div class="form-group col-6">
-                                    <label for="pax">Number of pax</label>
-                                    <input type="number" class="form-control" id="pax" name="pax" placeholder="Type something..." required>
-                                </div>
-                                <div class="form-group col-6">
+                                <div class="form-group col-12">
                                     <label for="phone">Phone / Whatsapp number</label>
                                     <input type="number" class="form-control" id="phone" name="phone" placeholder="Type something...">
                                 </div>
