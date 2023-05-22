@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConfirmationLetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ConfirmationLetterMail;
+use App\Models\Villa;
 
 class ConfirmationLetterController extends Controller
 {
@@ -28,7 +32,28 @@ class ConfirmationLetterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ConfirmationLetter::create([
+            'confirmation_number' => $request->confirmation_number,
+            'check_in_date' => $request->check_in_date,
+            'check_out_date' => $request->check_out_date,
+            'villa_id' => $request->villa_id,
+            'adult' => $request->adult,
+            'child' => $request->child,
+            'total_charge' => $request->total_charge,
+            'payment_status' => $request->payment_status,
+            'campaign_name' => $request->campaign_name,
+            'campaign_benefit' => $request->campaign_benefit,
+            'remarks' => $request->remarks,
+            'title' => $request->title,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'check_in_out' => $request->check_in_out,
+            'terms_conditions' => $request->terms_conditions,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('confirmation-letter.show', $request->confirmation_number)->with('message', $request->title . ' created Successfully');
     }
 
     /**
@@ -36,7 +61,20 @@ class ConfirmationLetterController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = ConfirmationLetter::where('confirmation_number', $id)->first();
+        $villa = Villa::where('id', $data->villa_id)->first();
+
+        // $mailData = [
+        //     'title' => 'Mail from ItSolutionStuff.com',
+        //     'body' => 'This is for testing email using smtp.'
+        // ];
+
+        // Mail::to($data->email)
+        //     ->cc('reservation@nandinibali.com')
+        //     ->cc('info@nandinibali.com')
+        //     ->send(new ConfirmationLetterMail($mailData));
+
+        return view('admin/confirmation-letter/show')->with(compact('data', 'villa'));
     }
 
     /**

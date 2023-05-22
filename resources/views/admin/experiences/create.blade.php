@@ -5,35 +5,35 @@
 @endpush
 
 @push('js')
-<script src="https://cdn.tiny.cloud/1/d8ys6zcfcgiv1bwe4den7z48yndrj1ruw5r57ujbg366mut6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
+    <script src="https://cdn.tiny.cloud/1/d8ys6zcfcgiv1bwe4den7z48yndrj1ruw5r57ujbg366mut6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
             selector: '#campaign_benefit',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-</script>
-<script>
-    tinymce.init({
+    </script>
+    <script>
+        tinymce.init({
             selector: '#remarks',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-</script>
-<script>
-    tinymce.init({
+    </script>
+    <script>
+        tinymce.init({
             selector: '#check_in_out',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-</script>
-<script>
-    tinymce.init({
+    </script>
+    <script>
+        tinymce.init({
             selector: '#terms_conditions',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-</script>
+    </script>
 @endpush
 <x-app-layout>
 
@@ -46,12 +46,11 @@
                 <h1 class="h3 mb-4 text-gray-800">@yield('title')</h1>
             </div>
             <div class="col-6 text-right">
-                <button class="btn btn-primary" form="createForm"><i class="fas fa-paper-plane"></i> Save & Preview</button>
+                {{-- <a href="{{ route('confirmation-letter.create') }}" class="btn btn-success"><i class="fas fa-plus"></i> Create New</a> --}}
             </div>
         </div>
 
-        <form method="POST" action="{{ route('confirmation-letter.store') }}" enctype="multipart/form-data" class="row" id="createForm">
-            @csrf
+        <div class="row">
             <div class="col-8">
                 <div class="card mb-4 shadow">
                     <!-- Card Header - Accordion -->
@@ -65,21 +64,20 @@
                                 <div class="form-group col-12">
                                     <label for="confirmation_number">Confirmation number</label>
                                     <input type="number" class="form-control" id="confirmation_number" name="confirmation_number" placeholder="Type something..." required>
-                                    <input type="hidden" name="status" value="0">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="check_in">Check in</label>
-                                    <input type="date" class="form-control" id="check_in" name="check_in_date" placeholder="Type something..." required>
+                                    <input type="date" class="form-control" id="check_in" name="check_in" placeholder="Type something..." required>
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="check_out">Check out</label>
-                                    <input type="date" class="form-control" id="check_out" name="check_out_date" placeholder="Type something..." required>
+                                    <input type="date" class="form-control" id="check_out" name="check_out" placeholder="Type something..." required>
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="room_type">Room type</label>
-                                    <select name="villa_id" id="room_type" class="form-control" required>
+                                    <select name="room_type" id="room_type" class="form-control" required>
                                         <option value="">Choose something...</option>
-                                        <option value="1">Prince</option>
+                                        <option value="Prince">Prince</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-6">
@@ -208,7 +206,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
 
 
     </div>
