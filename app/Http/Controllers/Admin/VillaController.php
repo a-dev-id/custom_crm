@@ -12,7 +12,7 @@ class VillaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin/villa/index');
     }
 
     /**
@@ -20,7 +20,7 @@ class VillaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/villa/create');
     }
 
     /**

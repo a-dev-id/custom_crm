@@ -1,18 +1,18 @@
-@section('confirmation_letter_active', 'active')
-@section('title', 'Confirmation Letter')
+@section('villa_active', 'active')
+@section('title', 'Villa')
 
 @push('css')
-    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endpush
 
 @push('js')
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
             $('#example').DataTable();
         });
-    </script>
+</script>
 @endpush
 <x-app-layout>
 
@@ -25,7 +25,7 @@
                 <h1 class="h3 mb-4 text-gray-800">@yield('title')</h1>
             </div>
             <div class="col-6 text-right">
-                <a href="{{route('confirmation-letter.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Create New</a>
+                <a href="{{route('villa.create')}}" class="btn btn-success"><i class="fas fa-plus"></i> Create New</a>
             </div>
         </div>
 
@@ -42,24 +42,23 @@
                             <table id="example" class="table-striped table-bordered table" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Full name</th>
-                                        <th>Email</th>
-                                        <th>Arrival</th>
-                                        <th>Departure</th>
-                                        <th>Total Guest</th>
-                                        <th>Villa Name</th>
-                                        <th>Created at</th>
+                                        <th style="width: 150px">Image</th>
+                                        <th style="width: 300px">Villa Name</th>
+                                        <th>Description</th>
+                                        <th style="width: 150px">Created at</th>
+                                        <th style="width: 150px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
+                                        <th>Image</th>
+                                        <th>Villa Name</th>
+                                        <th>Description</th>
+                                        <th>Created at</th>
+                                        <th>
+                                            <a href="#" class="btn btn-warning">edit</a>
+                                            <a href="#" class="btn btn-danger">danger</a>
+                                        </th>
                                     </tr>
                                 </tbody>
                             </table>

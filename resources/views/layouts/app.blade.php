@@ -12,11 +12,13 @@
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('vendors/sbadmin') }}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('vendors/sbadmin') }}/css/sb-admin-2.min.css" rel="stylesheet">
+
+    @vite('resources/js/app.js')
 
     @stack('css')
 </head>
@@ -59,6 +61,13 @@
                 <a class="nav-link" href="{{route('confirmation-letter.index')}}">
                     <i class="fas fa-fw fa-envelope-open-text"></i>
                     <span>Confirmation Letter</span></a>
+            </li>
+
+            <li class="nav-item @yield('villa_active')">
+                <a class="nav-link" href="{{route('villa.index')}}">
+                    {{-- <i class="fas fa-fw fa-envelope-open-text"></i> --}}
+                    <i class="fa-solid fa-house fa-fw"></i>
+                    <span>Villa</span></a>
             </li>
 
             <!-- Divider -->
@@ -171,10 +180,10 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
                     <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a class="btn btn-danger" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </form>
-                    
+                        @csrf
+                        <a class="btn btn-danger" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </form>
+
                 </div>
             </div>
         </div>

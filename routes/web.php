@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ConfirmationLetterController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\VillaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('/dashboard', DashboardController::class);
     Route::resource('/confirmation-letter', ConfirmationLetterController::class);
+    Route::resource('/villa', VillaController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -1,39 +1,39 @@
-@section('confirmation_letter_active', 'active')
-@section('title', 'Create - Confirmation Letter')
+@section('villa_active', 'active')
+@section('title', 'Create - Villa')
 
 @push('css')
 @endpush
 
 @push('js')
-    <script src="https://cdn.tiny.cloud/1/d8ys6zcfcgiv1bwe4den7z48yndrj1ruw5r57ujbg366mut6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
+<script src="https://cdn.tiny.cloud/1/d8ys6zcfcgiv1bwe4den7z48yndrj1ruw5r57ujbg366mut6/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
             selector: '#campaign_benefit',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-    </script>
-    <script>
-        tinymce.init({
+</script>
+<script>
+    tinymce.init({
             selector: '#remarks',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-    </script>
-    <script>
-        tinymce.init({
+</script>
+<script>
+    tinymce.init({
             selector: '#check_in_out',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-    </script>
-    <script>
-        tinymce.init({
+</script>
+<script>
+    tinymce.init({
             selector: '#terms_conditions',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
         });
-    </script>
+</script>
 @endpush
 <x-app-layout>
 
