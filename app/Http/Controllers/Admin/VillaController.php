@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Villa;
 use Illuminate\Http\Request;
 
 class VillaController extends Controller
@@ -12,7 +13,8 @@ class VillaController extends Controller
      */
     public function index()
     {
-        return view('admin/villa/index');
+        $villas = Villa::all();
+        return view('admin/villa/index')->with(compact('villas'));
     }
 
     /**
@@ -28,7 +30,22 @@ class VillaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (empty($request->file('image'))) {
+            $image = null;
+        } else {
+            $image = $request->file('image')->store('images/villa', 'public');
+        }
+
+        Villa::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'size' => $request->size,
+            'advantages' => $request->advantages,
+            'view' => $request->view,
+            'image' => $image,
+        ]);
+
+        return redirect()->route('villa.index');
     }
 
     /**
