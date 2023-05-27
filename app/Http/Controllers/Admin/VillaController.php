@@ -61,7 +61,8 @@ class VillaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Villa::find($id);
+        return view('admin/villa/edit')->with(compact('data'));
     }
 
     /**

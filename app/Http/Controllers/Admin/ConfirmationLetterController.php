@@ -7,6 +7,7 @@ use App\Models\ConfirmationLetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmationLetterMail;
+use App\Models\Guest;
 use App\Models\Villa;
 
 class ConfirmationLetterController extends Controller
@@ -51,6 +52,16 @@ class ConfirmationLetterController extends Controller
             'check_in_out' => $request->check_in_out,
             'terms_conditions' => $request->terms_conditions,
             'status' => $request->status,
+        ]);
+
+        Guest::create([
+            'title' => $request->title,
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'country' => $request->country,
+            'birth_date' => $request->birth_date,
+            'reservation_date' => $request->check_in_date,
         ]);
 
         return redirect()->route('confirmation-letter.show', $request->confirmation_number)->with('message', $request->title . ' created Successfully');

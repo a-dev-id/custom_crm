@@ -50,16 +50,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($villas as $data)
                                     <tr>
-                                        <th>Image</th>
-                                        <th>Villa Name</th>
-                                        <th>Description</th>
-                                        <th>Created at</th>
+                                        <th><img src="{{$data->image}}" class="w-100"></th>
+                                        <th>{{$data->name}}</th>
+                                        <th>{!! $data->description !!}</th>
+                                        <th>{{date('d M Y', strtotime($data->created_at))}}</th>
                                         <th>
                                             <a href="#" class="btn btn-warning">edit</a>
                                             <a href="#" class="btn btn-danger">danger</a>
                                         </th>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
