@@ -1,5 +1,5 @@
 @section('villa_active', 'active')
-@section('title', 'Edit - Villa')
+@section('title', 'Edit - '.$data->name)
 
 @push('css')
 @endpush
@@ -25,29 +25,30 @@
                 <h1 class="h3 mb-4 text-gray-800">@yield('title')</h1>
             </div>
             <div class="col-6 text-right">
-                <button class="btn btn-primary" form="createForm"><i class="fas fa-save mr-2"></i> Save</button>
+                <button class="btn btn-warning" form="createForm"><i class="fas fa-save"></i> Update</button>
             </div>
         </div>
 
-        <form method="POST" action="{{ route('villa.update') }}" enctype="multipart/form-data" class="row" id="createForm">
+        <form method="POST" action="{{ route('villa.update', [$data->id]) }}" enctype="multipart/form-data" class="row" id="createForm">
+            @method('PUT')
             @csrf
             <div class="col-8">
                 <div class="card mb-4 shadow">
                     <!-- Card Header - Accordion -->
-                    <a href="#collapseGeneral" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseGeneral">
+                    <a href="#collapseBookingDetail" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseBookingDetail">
                         <h6 class="font-weight-bold text-primary m-0">General</h6>
                     </a>
                     <!-- Card Content - Collapse -->
-                    <div class="show collapse" id="collapseGeneral">
+                    <div class="show collapse" id="collapseBookingDetail">
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-12">
                                     <label for="name">Villa Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Type something..." required>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Type something..." required value="{{$data->name}}">
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="description">Description</label>
-                                    <textarea id="description" class="form-control" name="description" placeholder="Type something..."></textarea>
+                                    <textarea id="description" class="form-control" name="description" placeholder="Type something...">{!! $data->description !!}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -57,11 +58,11 @@
             <div class="col-4">
                 <div class="card mb-4 shadow">
                     <!-- Card Header - Accordion -->
-                    <a href="#collapseDetail" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseDetail">
+                    <a href="#collapseGuestDetail" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseGuestDetail">
                         <h6 class="font-weight-bold text-primary m-0">Detail</h6>
                     </a>
                     <!-- Card Content - Collapse -->
-                    <div class="show collapse" id="collapseDetail">
+                    <div class="show collapse" id="collapseGuestDetail">
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-6">
@@ -70,15 +71,20 @@
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="size">Villa Size</label>
-                                    <input type="text" class="form-control" id="size" name="size" placeholder="Type something..." required>
+                                    <input type="text" class="form-control" id="size" name="size" placeholder="Type something..." required value="{{$data->size}}">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="advantages">Advantage</label>
-                                    <input type="text" class="form-control" id="advantages" name="advantages" placeholder="Type something..." required>
+                                    <input type="text" class="form-control" id="advantages" name="advantages" placeholder="Type something..." required value="{{$data->advantages}}">
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="view">View</label>
-                                    <input type="text" class="form-control" id="view" name="view" placeholder="Type something..." required>
+                                    <input type="text" class="form-control" id="view" name="view" placeholder="Type something..." required value="{{$data->view}}">
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="image">Current Image</label>
+                                    <input type="hidden" name="old_image" value="{{$data->image}}">
+                                    <img src="{{asset($data->image)}}" class="w-100">
                                 </div>
                             </div>
                         </div>

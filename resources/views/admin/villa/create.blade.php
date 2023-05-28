@@ -25,7 +25,7 @@
                 <h1 class="h3 mb-4 text-gray-800">@yield('title')</h1>
             </div>
             <div class="col-6 text-right">
-                <button class="btn btn-primary" form="createForm"><i class="fas fa-save mr-2"></i> Save</button>
+                <button class="btn btn-success" form="createForm"><i class="fas fa-save mr-2"></i> Save</button>
             </div>
         </div>
 

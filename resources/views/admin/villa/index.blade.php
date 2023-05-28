@@ -13,6 +13,12 @@
             $('#example').DataTable();
         });
 </script>
+<script>
+    setTimeout(() => {
+            const box = document.getElementById('alert');
+            box.style.display = 'none';
+        }, 3000);
+</script>
 @endpush
 <x-app-layout>
 
@@ -20,6 +26,15 @@
     <div class="container-fluid">
 
         <div class="row">
+            @if (session('message'))
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible" id="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="far fa-times-circle text-white"></i></button>
+                    <h5><i class="icon fas fa-check"></i> Success!</h5>
+                    {{ session('message') }}
+                </div>
+            </div>
+            @endif
             <div class="col-6">
                 <!-- Page Heading -->
                 <h1 class="h3 mb-4 text-gray-800">@yield('title')</h1>
@@ -46,19 +61,48 @@
                                         <th style="width: 300px">Villa Name</th>
                                         <th>Description</th>
                                         <th style="width: 150px">Created at</th>
-                                        <th style="width: 150px"></th>
+                                        <th style="width: 80px;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($villas as $data)
                                     <tr>
-                                        <th><img src="{{$data->image}}" class="w-100"></th>
+                                        <th><img src="{{asset($data->image)}}" class="w-100"></th>
                                         <th>{{$data->name}}</th>
                                         <th>{!! $data->description !!}</th>
                                         <th>{{date('d M Y', strtotime($data->created_at))}}</th>
                                         <th>
-                                            <a href="#" class="btn btn-warning">edit</a>
-                                            <a href="#" class="btn btn-danger">danger</a>
+                                            <a href="{{route('villa.edit', [$data->id])}}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#modal_delete_{{ $data->id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+
+                                            <div class="modal fade" id="modal_delete_{{ $data->id }}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger">
+                                                            <h4 class="modal-title text-white"><i class="fas fa-exclamation-triangle text-white"></i> Warning!</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body text-left">
+                                                            Are you sure want to delete this <strong>"{{ $data->name }}"</strong> ?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fas fa-ban"></i> Cancel</button>
+                                                            <form method="POST" action="{{ route('villa.destroy', [$data->id]) }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
                                         </th>
                                     </tr>
                                     @endforeach

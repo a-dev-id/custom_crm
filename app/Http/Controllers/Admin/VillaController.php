@@ -14,7 +14,7 @@ class VillaController extends Controller
     public function index()
     {
         $villas = Villa::all();
-        return view('admin/villa/index')->with(compact('villas'));
+        return view('admin.villa.index')->with(compact('villas'));
     }
 
     /**
@@ -22,7 +22,7 @@ class VillaController extends Controller
      */
     public function create()
     {
-        return view('admin/villa/create');
+        return view('admin.villa.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class VillaController extends Controller
             'image' => $image,
         ]);
 
-        return redirect()->route('villa.index');
+        return redirect()->route('villa.index')->with('message', $request->name . ' created Successfully');
     }
 
     /**
@@ -62,7 +62,7 @@ class VillaController extends Controller
     public function edit(string $id)
     {
         $data = Villa::find($id);
-        return view('admin/villa/edit')->with(compact('data'));
+        return view('admin.villa.edit')->with(compact('data'));
     }
 
     /**
@@ -70,7 +70,24 @@ class VillaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (empty($request->file('image'))) {
+            $image = $request->old_image;
+        } else {
+            $image = $request->file('image')->store('images/villa', 'public');
+        }
+
+        $data = Villa::find($id);
+
+        $data->name = $request->name;
+        $data->description = $request->description;
+        $data->size = $request->size;
+        $data->advantages = $request->advantages;
+        $data->view = $request->view;
+        $data->image = $image;
+
+        $data->save();
+
+        return redirect()->route('villa.index')->with('message', $request->name . ' edited Successfully');
     }
 
     /**
@@ -78,6 +95,8 @@ class VillaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Villa::find($id);
+        $data->delete();
+        return redirect()->route('villa.index')->with('message', $data->name . ' deleted Successfully');
     }
 }

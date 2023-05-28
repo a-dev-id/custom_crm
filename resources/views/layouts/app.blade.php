@@ -57,6 +57,13 @@
                 General
             </div>
 
+            <li class="nav-item @yield('guest_active')">
+                <a class="nav-link" href="{{route('villa.index')}}">
+                    {{-- <i class="fas fa-fw fa-envelope-open-text"></i> --}}
+                    <i class="fa-solid fa-users fa-fw"></i>
+                    <span>Guests</span></a>
+            </li>
+
             <li class="nav-item @yield('confirmation_letter_active')">
                 <a class="nav-link" href="{{route('confirmation-letter.index')}}">
                     <i class="fas fa-fw fa-envelope-open-text"></i>
@@ -67,7 +74,7 @@
                 <a class="nav-link" href="{{route('villa.index')}}">
                     {{-- <i class="fas fa-fw fa-envelope-open-text"></i> --}}
                     <i class="fa-solid fa-house fa-fw"></i>
-                    <span>Villa</span></a>
+                    <span>Villas</span></a>
             </li>
 
             <!-- Divider -->
