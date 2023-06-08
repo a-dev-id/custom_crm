@@ -17,7 +17,8 @@ class ConfirmationLetterController extends Controller
      */
     public function index()
     {
-        return view('admin/confirmation-letter/index');
+        $confirmation_letters = ConfirmationLetter::all();
+        return view('admin.confirmation-letter.index')->with(compact('confirmation_letters'));
     }
 
     /**
@@ -85,7 +86,7 @@ class ConfirmationLetterController extends Controller
         //     ->cc('info@nandinibali.com')
         //     ->send(new ConfirmationLetterMail($mailData));
 
-        return view('admin/confirmation-letter/show')->with(compact('data', 'villa'));
+        return view('admin.confirmation-letter.show')->with(compact('data', 'villa'));
     }
 
     /**
@@ -93,7 +94,8 @@ class ConfirmationLetterController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $detail = ConfirmationLetter::find($id);
+        return view('admin.confirmation-letter.edit')->with(compact('detail'));
     }
 
     /**

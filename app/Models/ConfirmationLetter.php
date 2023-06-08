@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ConfirmationLetter extends Model
 {
     use HasFactory;
+
+    public function villa(): BelongsTo
+    {
+        return $this->belongsTo(Villa::class);
+    }
 
     protected $fillable = [
         'confirmation_number',

@@ -2,17 +2,17 @@
 @section('title', 'Confirmation Letter')
 
 @push('css')
-    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 @endpush
 
 @push('js')
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
-    <script>
-        $(document).ready(function() {
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
             $('#example').DataTable();
         });
-    </script>
+</script>
 @endpush
 <x-app-layout>
 
@@ -42,6 +42,7 @@
                             <table id="example" class="table-striped table-bordered table" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>Confirmation No.</th>
                                         <th>Full name</th>
                                         <th>Email</th>
                                         <th>Arrival</th>
@@ -49,18 +50,37 @@
                                         <th>Total Guest</th>
                                         <th>Villa Name</th>
                                         <th>Created at</th>
+                                        <th>Status</th>
+                                        <th style="width:160px"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($confirmation_letters as $data)
                                     <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
+                                        <td>{{$data->confirmation_number}}</td>
+                                        <td>{{$data->full_name}}</td>
+                                        <td>{{$data->email}}</td>
+                                        <td>{{date('d M Y', strtotime($data->check_in_date))}}</td>
+                                        <td>{{date('d M Y', strtotime($data->check_out_date))}}</td>
+                                        @php
+                                        $total_guest = $data->adult + $data->child
+                                        @endphp
+                                        <td>{{$total_guest}}</td>
+                                        <td>{{$data->villa->name}}</td>
+                                        <td>{{date('d M Y', strtotime($data->create_at))}}</td>
+                                        <td>
+                                            @if ($data->status == '0')
+                                            <span class="badge badge-secondary">Draft</span></h1>
+                                            @else
+                                            <span class="badge badge-success">Send</span></h1>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('confirmation-letter.edit',[$data->id])}}" class="btn btn-warning"> Edit</a>
+                                            <button type="button" class="btn btn-danger"> Delete</button>
+                                        </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
