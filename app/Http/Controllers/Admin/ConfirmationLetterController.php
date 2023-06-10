@@ -7,7 +7,9 @@ use App\Models\ConfirmationLetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmationLetterMail;
+use App\Models\Country;
 use App\Models\Guest;
+use App\Models\Title;
 use App\Models\Villa;
 
 class ConfirmationLetterController extends Controller
@@ -26,7 +28,10 @@ class ConfirmationLetterController extends Controller
      */
     public function create()
     {
-        return view('admin/confirmation-letter/create');
+        $villa_list = Villa::all();
+        $title_list = Title::all();
+        $country_list = Country::all();
+        return view('admin.confirmation-letter.create')->with(compact('villa_list', 'title_list', 'country_list'));
     }
 
     /**
@@ -63,9 +68,10 @@ class ConfirmationLetterController extends Controller
             'country' => $request->country,
             'birth_date' => $request->birth_date,
             'reservation_date' => $request->check_in_date,
+            'confirmation_number' => $request->confirmation_number,
         ]);
 
-        return redirect()->route('confirmation-letter.show', $request->confirmation_number)->with('message', $request->title . ' created Successfully');
+        return redirect()->route('confirmation-letter.show', $request->confirmation_number);
     }
 
     /**
@@ -94,8 +100,12 @@ class ConfirmationLetterController extends Controller
      */
     public function edit(string $id)
     {
-        $detail = ConfirmationLetter::find($id);
-        return view('admin.confirmation-letter.edit')->with(compact('detail'));
+        $data = ConfirmationLetter::find($id);
+        $villa_list = Villa::all();
+        $title_list = Title::all();
+        $country_list = Country::all();
+        $guest = Guest::where('confirmation_number', '=', $data->confirmation_number)->first();
+        return view('admin.confirmation-letter.edit')->with(compact('data', 'villa_list', 'title_list', 'country_list', 'guest'));
     }
 
     /**
@@ -103,7 +113,38 @@ class ConfirmationLetterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $confirmation_letter = ConfirmationLetter::find($id);
+        $confirmation_letter->confirmation_number = $request->confirmation_number;
+        $confirmation_letter->check_in_date = $request->check_in_date;
+        $confirmation_letter->check_out_date = $request->check_out_date;
+        $confirmation_letter->villa_id = $request->villa_id;
+        $confirmation_letter->adult = $request->adult;
+        $confirmation_letter->child = $request->child;
+        $confirmation_letter->total_charge = $request->total_charge;
+        $confirmation_letter->payment_status = $request->payment_status;
+        $confirmation_letter->campaign_name = $request->campaign_name;
+        $confirmation_letter->campaign_benefit = $request->campaign_benefit;
+        $confirmation_letter->remarks = $request->remarks;
+        $confirmation_letter->title = $request->title;
+        $confirmation_letter->full_name = $request->full_name;
+        $confirmation_letter->email = $request->email;
+        $confirmation_letter->phone = $request->phone;
+        $confirmation_letter->check_in_out = $request->check_in_out;
+        $confirmation_letter->terms_conditions = $request->terms_conditions;
+        $confirmation_letter->status = $request->status;
+        $confirmation_letter->save();
+
+        $guest = Guest::where('confirmation_number', '=', $request->confirmation_number)->first();
+        $guest->title = $request->title;
+        $guest->full_name = $request->full_name;
+        $guest->email = $request->email;
+        $guest->phone = $request->phone;
+        $guest->country = $request->country;
+        $guest->birth_date = $request->birth_date;
+        $guest->reservation_date = $request->check_in_date;
+        $guest->save();
+
+        return redirect()->route('confirmation-letter.show', $request->confirmation_number);
     }
 
     /**

@@ -17,5 +17,6 @@ class Guest extends Model
         'country',
         'birth_date',
         'reservation_date',
+        'confirmation_number',
     ];
 }
